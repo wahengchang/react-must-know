@@ -1,0 +1,25 @@
+body {
+  background: #fff;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 15px;
+  line-height: 1.7;
+  margin: 0;
+  padding: 30px;
+}
+
+form {
+    border: 1px solid black;
+    padding: 10px;
+    border-radius: 2px;
+}
+
+input {
+    border: 1px solid black;
+    border-radius: 2px;
+}
+
+.BigTable {
+    border: 1px solid black;
+    padding: 10px;
+    border-radius: 2px;
+}
