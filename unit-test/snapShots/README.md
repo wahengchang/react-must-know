@@ -15,6 +15,7 @@ $ npm install --save-dev jest babel-jest babel-preset-es2015 babel-preset-react 
  - Create file named ".babelrc"
 
 ```javascript
+    //.babelrc
 {
   "presets": ["es2015", "react"]
 }
