@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>hello React</title>
+    <meta charset="utf-8">
+  </head>
+  <body>
+    <div id="app">
+      <!-- my app renders here -->
+    </div>
+    <script src="https://unpkg.com/react@15.3.0/dist/react.js"></script>
+    <script src="https://unpkg.com/react-dom@15.3.0/dist/react-dom.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.24/browser.js"></script>
+    <script type="text/babel">
+
+        function connectToStores(Component, stores, getStateFromStores) {
+            const StoreConnection = React.createClass({
+                getInitialState() {
+                    return getStateFromStores(this.props);
+                },
+                componentDidMount() {
+                    stores.forEach(store =>
+                        store.addChangeListener(this.handleStoresChanged)
+                );
+                },
+                componentWillUnmount() {
+                    stores.forEach(store =>
+                        store.removeChangeListener(this.handleStoresChanged)
+                    );
+                },
+                handleStoresChanged() {
+                    if (this.isMounted()) {
+                        this.setState(getStateFromStores(this.props));
+                    }
+                },
+                render() {
+                    return <Component {...this.props} {...this.state} />;
+                }
+            });
+            return StoreConnection;
+        };
+
+        var ProfilePage = React.createClass ({
+            propTypes: {
+                userId: React.PropTypes.number.isRequired,
+                user: React.PropTypes.object // note that user is now a prop
+            },
+            render() {
+                var { user } = this.props; // get user from props
+                return <div>{user ? user.name : 'Loading'}</div>;
+            }
+        });
+
+
+        // Now wrap ProfilePage using a higher-order component:
+       ProfilePage = connectToStores(ProfilePage, [UserStore], props => {
+            user: UserStore.get(props.userId)
+        });
+
+        ReactDOM.render(
+            React.createElement(ProfilePage),
+            document.getElementById("app")
+        );
+    </script>
+  </body>
+</html>

@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>hello React</title>
+    <meta charset="utf-8">
+  </head>
+  <body>
+    <div id="app">
+      <!-- my app renders here -->
+    </div>
+    <script src="https://unpkg.com/react@15.3.0/dist/react.js"></script>
+    <script src="https://unpkg.com/react-dom@15.3.0/dist/react-dom.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.24/browser.js"></script>
+    <script type="text/babel">
+        
+        var Sub  = React.createClass({
+            propTypes: {
+                name: React.PropTypes.string.isRequired,
+            },
+            getInitialState() {
+                return {
+                    name : this.props.name
+                }
+            },
+            updateName : function() {
+                this.setState({name: this.state.name + '_'})
+            },
+            render: function() {
+                return (
+                    <div style={{borderStyle: 'groove' , padding: 10}}>
+                        <h4> Sub </h4>
+                        <span>Props.state:  {this.state.name} </span>
+                        <div>Props.name: {this.props.name}</div>
+                        <button onClick = {this.updateName}>Update</button>
+                    </div>
+                );
+            }
+        });
+
+        var SubButton  = React.createClass({
+            propTypes: {
+                name: React.PropTypes.string.isRequired,
+            },
+            getInitialState() {
+                return {
+                    name : this.props.name
+                }
+            },
+            updateName : function(){
+                this.props.updateName();
+            },
+            render: function() {
+                return (
+                    <div style={{borderStyle: 'groove' , padding: 10}}>
+                        <h4> SubButton </h4>
+                        <span>Props.state:  {this.state.name} </span>
+                        <div>Props.name: {this.props.name}</div>
+                        <button onClick = {this.updateName}>Update</button>
+                    </div>
+                );
+            }
+        });
+        
+        var App  = React.createClass({
+            getInitialState() {
+                return {
+                    name : 'Peter'
+                }
+            },
+
+            updateName : function() {
+                this.setState({name: this.state.name + '_'})
+            },
+
+            render: function() {
+                return (
+                    <div style={{borderStyle: 'dotted', padding: 10}}>
+                        <Sub name={this.state.name}/>
+                        <SubButton name={this.state.name} updateName={this.updateName}/>
+
+                        <div>
+                            <span> {this.state.name} </span>
+                            <button onClick = {this.updateName}>Update</button>
+                        </div>
+                    </div>
+                );
+            }
+        });
+
+
+        ReactDOM.render(
+        <App />,
+        document.getElementById('app')
+        );
+
+    </script>
+  </body>
+</html>
