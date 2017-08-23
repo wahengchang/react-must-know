@@ -12,8 +12,19 @@
     <script src="https://unpkg.com/react-dom@15.3.0/dist/react-dom.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.24/browser.js"></script>
     <script type="text/babel">
+
+      class BigTable extends React.Component {
+        render() {
+          return (
+            <div >
+              i love you
+            </div>
+          );
+        }
+      }
+
       ReactDOM.render(
-        React.DOM.h1(null, "Hello world!"),
+        <BigTable />,
         document.getElementById("app")
       );
     </script>

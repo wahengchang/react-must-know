@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>hello React</title>
+    <meta charset="utf-8">
+  </head>
+  <body>
+    <div id="app">
+      <!-- my app renders here -->
+    </div>
+    <script src="https://unpkg.com/react@15.3.0/dist/react.js"></script>
+    <script src="https://unpkg.com/react-dom@15.3.0/dist/react-dom.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.24/browser.js"></script>
+    <script type="text/babel">
+
+/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+        class Button extends React.Component {
+            render() {
+                return (
+                <button style={{
+                    background: this.context.color,
+                    fontSize: this.context.fontSize
+                    }}>
+                    {this.props.children}
+                </button>
+                );
+            }
+        }
+
+        Button.contextTypes = {
+            color: React.PropTypes.string, 
+            fontSize: React.PropTypes.string
+        };
+
+/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+        class Message extends React.Component {
+            getChildContext() {
+                return {
+                    color: "purple",
+                    fontSize: '50px'
+                }
+            }
+
+            render() {
+                return (
+                <div>
+                    {this.props.text} <Button>Delete</Button>
+                </div>
+                );
+            }
+        }
+        Message.childContextTypes = {
+            color: React.PropTypes.string,
+            fontSize: React.PropTypes.string
+        };
+
+/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+      ReactDOM.render(
+        <Message
+            text = {'anc'}
+        />,
+        document.getElementById("app")
+      );
+    </script>
+  </body>
+</html>
